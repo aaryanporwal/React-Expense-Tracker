@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { GlobalContext } from "../context/GlobalState";
+import { Transaction } from "./Transaction";
 
 export const TransactionList = () => {
   const { transactions } = useContext(GlobalContext);
@@ -9,22 +10,10 @@ export const TransactionList = () => {
       <h3>History</h3>
       <ul className="list">
         {transactions.map((transaction) => (
-          <li className={changeTransactionListClass(transaction)}>
-            {transaction.text}
-            <span>₹ {transaction.amount}</span>
-            <button className="delete-btn"> x </button>
-          </li>
+          <Transaction key={transaction.id} transaction={transaction} />
         ))}
+        {/* returns an array of transactions like: [23,-10,112] */}
       </ul>
     </>
   );
 };
-
-function changeTransactionListClass(transaction) {
-  // function to change class based on transaction amount
-  let moneyItemClass = "plus";
-  if (transaction.amount < 0) {
-    moneyItemClass = "minus";
-  }
-  return moneyItemClass;
-}
